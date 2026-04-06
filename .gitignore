@@ -1,0 +1,32 @@
+# Entornos virtuales (¡MUY IMPORTANTE!)
+venv/
+env/
+.venv/
+
+# Archivos compilados de Python
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Base de datos local (por si llegas a usar SQLite en pruebas)
+db.sqlite3
+db.sqlite3-journal
+
+# Archivos de configuración de VSCode
+.vscode/
+
+# Variables de entorno y secretos (para cuando uses un archivo .env)
+.env
+.env.local
+
+# Archivos de registro (logs)
+*.log
+
+# Archivos del sistema operativo (Windows/Mac)
+Thumbs.db
+.DS_Store
+
+# Carpetas de distribución y paquetes
+build/
+dist/
+*.egg-info/
