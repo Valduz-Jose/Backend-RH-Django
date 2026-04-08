@@ -15,6 +15,8 @@ from pathlib import Path
 import pymysql
 
 # Hacemos que PyMySQL se comporte como el cliente nativo de MySQL para Django
+# y le asignamos una versión falsa superior a la 2.2.1 para que Django no se queje
+pymysql.version_info = (2, 2, 2, "final", 0)
 pymysql.install_as_MySQLdb()
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
