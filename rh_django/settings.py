@@ -13,26 +13,23 @@ https://docs.djangoproject.com/en/6.0/ref/settings/
 import os
 from pathlib import Path
 import pymysql
+import dj_database_url
+from dotenv import load_dotenv
 
-# Hacemos que PyMySQL se comporte como el cliente nativo de MySQL para Django
-# y le asignamos una versión falsa superior a la 2.2.1 para que Django no se queje
+# Cargar variables de entorno desde el archivo .env
+load_dotenv()
+
 pymysql.version_info = (2, 2, 2, "final", 0)
 pymysql.install_as_MySQLdb()
 
-# Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
+# Ahora leemos la clave secreta y el modo debug desde el .env
+SECRET_KEY = os.environ.get('SECRET_KEY')
+DEBUG = os.environ.get('DEBUG') == 'True'
 
-# Quick-start development settings - unsuitable for production
-# See https://docs.djangoproject.com/en/6.0/howto/deployment/checklist/
-
-# SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-ca4jxyeuy#+plkfelwf&z5!=f5ksr1@oh9%rc-w3y)%fx7zhdb'
-
-# SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
-
-ALLOWED_HOSTS = ['localhost','127.0.0.1']
+# Aquí pondremos el dominio que nos dé el servidor (ej: 'mi-api.onrender.com')
+ALLOWED_HOSTS = ['*'] # El asterisco permite cualquiera temporalmente, lo cambiaremos luego
 
 
 # Application definition
@@ -55,6 +52,7 @@ INSTALLED_APPS = [
 MIDDLEWARE = [
     'corsheaders.middleware.CorsMiddleware', # Debe ir antes del CommonMiddleware
     'django.middleware.security.SecurityMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -88,19 +86,22 @@ WSGI_APPLICATION = 'rh_django.wsgi.application'
 
 #---MySql (PyMySQL)---
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'recursos_humanos_db',
-        'USER': 'root',
-        'PASSWORD': 'admin',
-        'HOST': '127.0.0.1',
-        'PORT': '3306',
-        'OPTIONS':{
-            'charset': 'utf8mb4',
-            'init_command': "SET sql_mode='STRICT_ALL_TABLES'",
-        },
-        'CONN_MAX_AGE': 60,  # Mantener la conexión abierta por 60 segundos  
-    }
+    # 'default': {
+    #     'ENGINE': 'django.db.backends.mysql',
+    #     'NAME': 'recursos_humanos_db',
+    #     'USER': 'root',
+    #     'PASSWORD': 'admin',
+    #     'HOST': '127.0.0.1',
+    #     'PORT': '3306',
+    #     'OPTIONS':{
+    #         'charset': 'utf8mb4',
+    #         'init_command': "SET sql_mode='STRICT_ALL_TABLES'",
+    #     },
+    #     'CONN_MAX_AGE': 60,  # Mantener la conexión abierta por 60 segundos  
+    # }
+    'default': dj_database_url.config(
+        conn_max_age=600
+    )
 }
 
 
