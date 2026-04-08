@@ -141,6 +141,9 @@ USE_TZ = True
 
 STATIC_URL = 'static/'
 
+# NUEVO: Le decimos a Django dónde guardar los archivos estáticos en producción
+STATIC_ROOT = BASE_DIR / 'staticfiles'
+
 # --- CONFIGURACIÓN CORS ---
 CORS_ALLOWED_ORIGINS = [
     "http://localhost:4200", # Angular
