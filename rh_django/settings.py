@@ -146,6 +146,7 @@ STATIC_ROOT = BASE_DIR / 'staticfiles'
 
 # --- CONFIGURACIÓN CORS ---
 CORS_ALLOWED_ORIGINS = [
+    "https://frontend-rh-react-tu-usuario.vercel.app", # La de Vercel
     "http://localhost:4200", # Angular
     "http://localhost:5173", # React Vite
 ]
