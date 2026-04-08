@@ -50,8 +50,8 @@ INSTALLED_APPS = [
 ]
 
 MIDDLEWARE = [
-    'corsheaders.middleware.CorsMiddleware', # Debe ir antes del CommonMiddleware
     'django.middleware.security.SecurityMiddleware',
+    'corsheaders.middleware.CorsMiddleware', 
     'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -146,7 +146,7 @@ STATIC_ROOT = BASE_DIR / 'staticfiles'
 
 # --- CONFIGURACIÓN CORS ---
 CORS_ALLOWED_ORIGINS = [
-    "https://frontend-rh-react-tu-usuario.vercel.app", # La de Vercel
+    "https://frontend-rh-react.vercel.app/", # La de Vercel
     "http://localhost:4200", # Angular
     "http://localhost:5173", # React Vite
 ]
@@ -162,5 +162,7 @@ CORS_ALLOWED_METHODS = [
     "OPTIONS",
 ]
 
+CORS_ALLOW_ALL_ORIGINS = False # Mantenlo en False por seguridad
+CORS_ALLOW_CREDENTIALS = True
 #No forzar slash final
 APPEND_SLASH = False
