@@ -156,3 +156,6 @@ CORS_ALLOWED_METHODS = [
     "DELETE",
     "OPTIONS",
 ]
+
+#No forzar slash final
+APPEND_SLASH = False
